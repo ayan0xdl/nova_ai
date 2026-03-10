@@ -4,11 +4,11 @@
   <img src="https://img.shields.io/badge/AI-Powered-black?style=for-the-badge"/>
   <img src="https://img.shields.io/badge/Frontend-React%20%2B%20Vite-blue?style=for-the-badge"/>
   <img src="https://img.shields.io/badge/Backend-FastAPI-green?style=for-the-badge"/>
-  <img src="https://img.shields.io/badge/LLM-Gemini%20AI-orange?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/LLM-orange?style=for-the-badge"/>
   <img src="https://img.shields.io/badge/License-MIT-purple?style=for-the-badge"/>
 </p>
 
-## 📌 Overview
+## Overview
 
 **NOVA AI** is a next-generation, AI-driven interview intelligence platform designed to evaluate candidates through dynamic, real-time conversations rather than static questionnaires. It bridges the gap between traditional recruitment and intelligent candidate assessment by adapting to the candidate's experience and the specific requirements of the job.
 
@@ -16,7 +16,7 @@ Built for modern hiring teams, the system parses resumes, analyzes job descripti
 
 ---
 
-## ✨ Key Features
+## Key Features
 
 - 📄 **Smart Resume (CV) & Job Description (JD) Parsing:** Uses advanced NLP (spaCy & pdfminer) to intelligently extract key skills, experiences, and requirements.
 - 🎯 **Gap Analysis & Deep Research:** AI compares the CV against the JD to highlight missing skills and automatically researches the candidate’s domain to tailor the interview.
@@ -26,7 +26,7 @@ Built for modern hiring teams, the system parses resumes, analyzes job descripti
 
 ---
 
-## 🛠 Tech Stack
+## Tech Stack
 
 ### Frontend 
 - **Framework:** React 19 + Vite
@@ -42,7 +42,7 @@ Built for modern hiring teams, the system parses resumes, analyzes job descripti
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 Follow these instructions to set up the project locally for development and testing.
 
@@ -100,7 +100,7 @@ npm run dev
 
 ---
 
-## 📸 Demo / Screenshots
+## Screenshots
 
 
 ### 1. Upload Section
@@ -123,17 +123,9 @@ npm run dev
 
 ---
 
-## 🔮 Future Improvements
+## Future Improvements
 
 - [ ] Connect with Applicant Tracking Systems (ATS) downstream.
 - [ ] Add Multi-language support for global technical interviews.
 - [ ] Implement Speech-to-Speech interaction (TTS for the interviewer voice).
 - [ ] Add facial sentiment analysis during the interview to track confidence.
-
----
-
-## Authors
-
-**Ayan Nawchoo & Rudrprakash Das**  
-AI | Computer Vision | Intelligent Systems  
-- GitHub: [@ayan0xdl](https://github.com/ayan0xdl) & [@RPCodes121](https://github.com/RPCodes121)
