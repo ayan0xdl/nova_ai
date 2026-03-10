@@ -1,0 +1,12 @@
+fastapi
+uvicorn
+python-multipart
+pdfminer.six
+python-docx
+spacy
+google-generativeai
+python-dotenv
+pandas
+openpyxl
+pydantic
+gunicorn

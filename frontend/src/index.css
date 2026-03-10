@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ai-primary: #8b5cf6;
+  --color-ai-secondary: #ec4899;
+  --color-ai-glow: #6366f1;
+  --color-ai-bg: #030014;
+  --color-ai-card: rgba(10, 10, 25, 0.6);
+  --color-ai-border: rgba(255, 255, 255, 0.08);
+
+  --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-display: "Outfit", system-ui, sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-[#030014] text-white antialiased selection:bg-purple-500/30 selection:text-white font-sans;
+  }
+}
+
+.glass-panel {
+  @apply bg-[rgba(15,15,30,0.5)] backdrop-blur-xl border border-[rgba(255,255,255,0.08)] shadow-[0_8px_32px_rgba(0,0,0,0.4)];
+  border-radius: 24px;
+}
+
+/* Custom slick scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.1);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+.animate-spin-slow {
+  animation: spin 12s linear infinite;
+}
+.animate-spin-reverse-slow {
+  animation: spin-reverse 15s linear infinite;
+}
+@keyframes spin-reverse {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
