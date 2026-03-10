@@ -4,7 +4,7 @@
   <img src="https://img.shields.io/badge/AI-Powered-black?style=for-the-badge"/>
   <img src="https://img.shields.io/badge/Frontend-React%20%2B%20Vite-blue?style=for-the-badge"/>
   <img src="https://img.shields.io/badge/Backend-FastAPI-green?style=for-the-badge"/>
-  <img src="https://img.shields.io/badge/LLM%20AI-orange?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/LLM-orange?style=for-the-badge"/>
   <img src="https://img.shields.io/badge/License-MIT-purple?style=for-the-badge"/>
 </p>
 
