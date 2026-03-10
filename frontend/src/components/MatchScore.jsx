@@ -54,9 +54,9 @@ export default function MatchScore({ jdText, resumeData, matchData, deepResearch
       <div className="glass-panel p-8">
         <div className="flex flex-col md:flex-row items-center gap-10 mb-8">
           
-          {/* Holographic Radar Scanner UI */}
+          {/* Radial Score indicator */}
           <div className="relative w-56 h-56 flex-shrink-0 flex items-center justify-center">
-            {/* Spinning radar sweep */}
+            {/* Radar background animation */}
             <div className="absolute inset-0 rounded-full border border-teal-500/30 bg-teal-500/5"></div>
             <motion.div 
               animate={{ rotate: 360 }}
@@ -95,7 +95,7 @@ export default function MatchScore({ jdText, resumeData, matchData, deepResearch
             </div>
           </div>
 
-          {/* Reasoning & Deep Research */}
+          {/* Reasoning & Insights */}
           <div className="flex-1 space-y-6">
             <div>
               <h2 className="text-2xl font-bold tracking-wide text-white flex items-center mb-3">

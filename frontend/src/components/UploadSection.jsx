@@ -52,7 +52,7 @@ export default function UploadSection({ onUploadComplete }) {
       })
       const uploadData = await uploadRes.json()
       
-      // 2. Match JD & Deep Research
+      // 2. Match JD against Resume
       const matchRes = await fetch(`${apiUrl}/api/match-jd`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -97,7 +97,7 @@ export default function UploadSection({ onUploadComplete }) {
       </div>
 
       <div className="glass-panel p-8 md:p-10 relative overflow-hidden">
-        {/* Decorative corner accents */}
+        {/* Corner accents */}
         <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-teal-500/50"></div>
         <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-teal-500/50"></div>
         <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-teal-500/50"></div>
@@ -106,7 +106,7 @@ export default function UploadSection({ onUploadComplete }) {
         <form onSubmit={handleSubmit} className="space-y-8 relative z-10">
           <div className="grid md:grid-cols-2 gap-8">
             
-            {/* Job Description Terminal Input */}
+            {/* Job Description Input */}
             <div className="space-y-3 group">
               <label className="flex items-center text-xs font-bold text-teal-500 uppercase tracking-widest">
                 <FileText size={16} className="mr-2" />
@@ -124,7 +124,7 @@ export default function UploadSection({ onUploadComplete }) {
               </div>
             </div>
 
-            {/* Resume Upload Dropzone */}
+            {/* Resume Upload */}
             <div className="space-y-3 relative group">
               <label className="flex items-center text-xs font-bold text-indigo-400 uppercase tracking-widest">
                 <Scan size={16} className="mr-2" />
@@ -150,7 +150,7 @@ export default function UploadSection({ onUploadComplete }) {
                   className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20"
                 />
                 
-                {/* Scanning Animation line inside dropzone */}
+                {/* Loading line animation */}
                 {isUploading && (
                   <motion.div 
                     animate={{ top: ['0%', '100%', '0%'] }}
@@ -183,7 +183,7 @@ export default function UploadSection({ onUploadComplete }) {
 
           </div>
 
-          {/* Submit Button */}
+          {/* Submit */}
           <div className="flex justify-center pt-6 block-cyber">
             <button
               type="submit"
@@ -191,7 +191,7 @@ export default function UploadSection({ onUploadComplete }) {
               className="relative group flex items-center justify-center px-10 py-5 font-bold text-slate-900 transition-all duration-300 bg-teal-400 border border-transparent hover:bg-teal-300 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_0_20px_rgba(20,184,166,0.4)] w-full md:w-auto overflow-hidden uppercase tracking-widest"
               style={{ clipPath: 'polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px)' }}
             >
-              {/* Button Glitch/Shine effect */}
+              {/* Button visual effect */}
               <div className="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-12"></div>
               
               {isUploading ? (

@@ -32,11 +32,11 @@ export default function Scorecard({ evaluation, onRestart }) {
     ? 'bg-amber-500 text-slate-900 shadow-[0_0_30px_rgba(251,191,36,0.5)]'
     : 'bg-rose-500 text-white shadow-[0_0_30px_rgba(244,63,94,0.5)]'
 
-  // Safeguard against malformed string evaluations (LLM failures)
+  // Handle string-based fallbacks
   const isErrorState = typeof evaluation === 'string' || !evaluation
   const safeEval = isErrorState ? {} : evaluation
 
-  // --- SVG Radar Chart Generator ---
+  // Radar Chart generation
   const radarMetrics = safeEval?.radar_metrics || {
     "Problem Solving": 50, "Technical Depth": 50, "Communication": 50, "Adaptability": 50, "System Design": 50
   }
@@ -46,7 +46,7 @@ export default function Scorecard({ evaluation, onRestart }) {
   const center = 150
   const radius = 100
 
-  // Calculate coordinates for a perfect pentagon (JD target - 100%)
+  // Calculate coordinates for base metrics
   const targetPoints = metricKeys.map((_, i) => {
     const angle = (Math.PI * 2 * i) / numPoints - Math.PI / 2
     return {
@@ -55,7 +55,7 @@ export default function Scorecard({ evaluation, onRestart }) {
     }
   })
 
-  // Calculate coordinates for the Candidate's actual scores
+  // Calculate candidate coordinates
   const candidatePoints = metricValues.map((val, i) => {
     const angle = (Math.PI * 2 * i) / numPoints - Math.PI / 2
     const r = radius * (val / 100)
@@ -84,7 +84,7 @@ export default function Scorecard({ evaluation, onRestart }) {
       animate={{ opacity: 1, scale: 1 }}
       className="max-w-6xl mx-auto space-y-8 pb-12"
     >
-      {/* HUD Header */}
+      {/* Header section */}
       <div className="glass-panel p-8 relative overflow-hidden border-t-2 border-t-teal-500/50">
         <div className="absolute top-0 right-0 w-96 h-96 bg-teal-500/10 rounded-full blur-[100px] -mr-20 -mt-20 pointer-events-none"></div>
         
@@ -187,7 +187,7 @@ export default function Scorecard({ evaluation, onRestart }) {
           </div>
         </div>
 
-        {/* Strengths / Weaknesses block */}
+        {/* Evaluation metrics section */}
         <div className="glass-panel p-8 flex flex-col space-y-8">
           <div className="flex-1">
             <h3 className="text-xs font-bold text-emerald-400 uppercase tracking-[0.2em] mb-4 flex items-center">
@@ -219,7 +219,7 @@ export default function Scorecard({ evaluation, onRestart }) {
         </div>
       </div>
 
-      {/* Futuristic Career Roadmap Generator */}
+      {/* Career Roadmap section */}
       <div className="glass-panel p-8 relative overflow-hidden flex flex-col">
         <h2 className="text-xl font-bold text-white uppercase tracking-widest flex items-center mb-10 border-b border-slate-700/50 pb-4">
           <Compass className="mr-3 text-indigo-400" /> Recommended Career Roadmap
@@ -283,7 +283,7 @@ export default function Scorecard({ evaluation, onRestart }) {
         </div>
       </div>
 
-      {/* New Candidate-Centric Innovations */}
+      {/* Market predictions */}
       <div className="grid md:grid-cols-2 gap-8 pt-4">
         {/* Market Value Estimator */}
         <div className="glass-panel p-6 border-l-4 border-l-emerald-500 flex flex-col justify-center relative overflow-hidden group">

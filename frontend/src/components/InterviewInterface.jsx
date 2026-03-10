@@ -29,7 +29,7 @@ export default function InterviewInterface({ jdText, resumeData, deepResearch, f
   } = useSpeechRecognition();
 
   useEffect(() => {
-    // Sync React-Speech-Recognition's transcript to our local editable state
+    // Sync transcript to local state
     if (listening) {
       setManualAnswer(transcript);
     }
@@ -151,7 +151,7 @@ export default function InterviewInterface({ jdText, resumeData, deepResearch, f
     )
   }
 
-  // Animation variants for the sci-fi typist effect
+  // Animation variants
   const sentence = {
     hidden: { opacity: 1 },
     visible: {
@@ -177,7 +177,7 @@ export default function InterviewInterface({ jdText, resumeData, deepResearch, f
         
         <div className="flex flex-col lg:flex-row">
           
-          {/* Left Column: AI Core & Sentiment HUD */}
+          {/* Left Column: AI Core */}
           <div className="w-full lg:w-1/3 border-b lg:border-b-0 lg:border-r border-white/5 p-6 lg:p-10 flex flex-col items-center justify-between relative overflow-hidden bg-black/40">
             
             {/* Background grid */}
@@ -188,7 +188,7 @@ export default function InterviewInterface({ jdText, resumeData, deepResearch, f
               <span className="font-sans text-[10px] text-white/40 uppercase tracking-[0.2em] font-medium">Q_{questionIndex + 1}/5</span>
             </div>
 
-            {/* AI Core Orb */}
+            {/* AI Core visualizer */}
             <div className="relative w-32 h-32 lg:w-48 lg:h-48 mb-6 flex items-center justify-center">
               {listening && (
                 <>
@@ -222,7 +222,7 @@ export default function InterviewInterface({ jdText, resumeData, deepResearch, f
               <BugPlay size={10} className="mr-1.5 opacity-60" /> Toggle Debug
             </button>
 
-            {/* Live Sentiment & Confidence HUD */}
+            {/* Confidence metrics */}
             <div className="w-full relative z-10 mt-auto bg-white/5 rounded-2xl p-5 border border-white/10 backdrop-blur-md shadow-lg">
               <h4 className="font-sans text-[10px] text-white/50 uppercase tracking-[0.1em] mb-4 flex items-center font-medium">
                 <Activity size={12} className="mr-1.5 text-purple-400" /> Analysis Confidence
@@ -274,7 +274,7 @@ export default function InterviewInterface({ jdText, resumeData, deepResearch, f
               </motion.h3>
             </div>
 
-            {/* Transcript Area (Editable) */}
+            {/* Transcript Area */}
             <div className="bg-black/30 rounded-3xl p-6 min-h-[160px] lg:min-h-[220px] border border-white/5 mb-8 flex flex-col relative group hover:bg-black/40 hover:border-white/10 transition-all duration-300 shadow-inner">
               <div className="absolute top-5 right-5 flex items-center space-x-1.5 z-10">
                 <span className={`w-2 h-2 rounded-full ${listening ? 'bg-rose-500 animate-pulse shadow-[0_0_8px_rgba(244,63,94,0.6)]' : 'bg-white/20'}`}></span>
@@ -305,7 +305,7 @@ export default function InterviewInterface({ jdText, resumeData, deepResearch, f
               </div>
             </div>
 
-            {/* STT Debug Panel */}
+            {/* Speech-to-text debug panel */}
             <AnimatePresence>
             {showDebug && (
               <motion.div 

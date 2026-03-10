@@ -3,7 +3,6 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { LayoutDashboard, CheckCircle2 } from 'lucide-react'
 
-// Components
 import UploadSection from './components/UploadSection'
 import MatchScore from './components/MatchScore'
 import InterviewInterface from './components/InterviewInterface'
@@ -12,7 +11,6 @@ import Scorecard from './components/Scorecard'
 function App() {
   const [step, setStep] = useState(1) // 1: Upload, 2: Match, 3: Interview, 4: Scorecard
   
-  // Shared State
   const [jdText, setJdText] = useState('')
   const [resumeData, setResumeData] = useState(null)
   const [matchData, setMatchData] = useState(null)
@@ -51,14 +49,14 @@ function App() {
   return (
     <div className="min-h-screen font-sans overflow-x-hidden relative app-container">
       
-      {/* Dynamic Animated Core Background */}
+      {/* Background styling */}
       <div className="fixed inset-0 z-0 pointer-events-none">
         <div className="absolute top-[-20%] left-[-10%] w-[70vw] h-[70vw] bg-purple-900/10 rounded-full blur-[120px] mix-blend-screen animate-pulse-slow"></div>
         <div className="absolute bottom-[-20%] right-[-10%] w-[60vw] h-[60vw] bg-indigo-900/10 rounded-full blur-[120px] mix-blend-screen animate-pulse-slow" style={{ animationDelay: '2s' }}></div>
         <div className="grid-overlay"></div>
       </div>
       
-      {/* Navbar area */}
+      {/* Navigation */}
       <header className="fixed top-0 w-full z-50 py-3 px-4 md:py-4 md:px-8 flex items-center justify-between border-b border-white/5 bg-[#030014]/40 backdrop-blur-xl supports-[backdrop-filter]:bg-[#030014]/40">
         <div className="flex items-center space-x-4 cursor-pointer group">
           <div className="w-10 h-10 md:w-12 md:h-12 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center transform group-hover:rotate-12 transition-all duration-300 shadow-[0_0_15px_rgba(139,92,246,0.15)]">
@@ -70,7 +68,7 @@ function App() {
           </div>
         </div>
 
-        {/* Futuristic Step Indicator */}
+        {/* Step progress */}
         <div className="hidden md:flex items-center space-x-3 text-sm font-semibold tracking-wide font-display">
           <span className={step >= 1 ? 'text-white' : 'text-white/30'}>01. SYNC</span>
           <span className="text-white/20">|</span>
@@ -82,7 +80,7 @@ function App() {
         </div>
       </header>
 
-      {/* Main Content Area */}
+      {/* Main layout */}
       <main className="relative z-10 container mx-auto px-4 pt-20 pb-20 md:pt-28 md:pb-24 min-h-[calc(100vh-80px)] flex flex-col justify-center">
         <AnimatePresence mode="wait">
           
@@ -151,7 +149,7 @@ function App() {
         </AnimatePresence>
       </main>
 
-      {/* Footer Area */}
+      {/* Footer text */}
       <footer className="relative z-10 w-full p-4 md:p-6 border-t border-white/5 bg-transparent text-center text-white/40 text-xs md:text-sm flex flex-col items-center justify-center space-y-2">
         <div className="flex items-center space-x-2 font-display">
           <span>{new Date().getFullYear()} NOVA AI</span>
