@@ -120,7 +120,15 @@ def generate_first_question(jd_text: str, resume_data: dict, deep_research: dict
     prompt = f"""
     You are an expert HR Technical Interviewer.
     Based on the following Job Description, Deep Market Research, and the candidate's Resume Data, generate the VERY FIRST interview question.
-    This should be a personalized ice-breaker that touches on their background and immediately transitions to a core stated skill or a hidden market requirement.
+    This should be a personalized, BASIC and EASY ice-breaker that touches on their background and introduces them to a core stated skill. The goal is to build their confidence at the start of the interview before increasing the difficulty.
+    
+    CRITICAL TONE INSTRUCTION FOR REALISM & EMOTION:
+    Do NOT sound like an AI or use stiff, corporate jargon. Speak exactly like a supportive, empathetic human being chatting over a Zoom call.
+    - Start naturally with genuine warmth (e.g., "Hi there!", "It's so great to meet you.", "Wow, I was just checking out your background...").
+    - Use conversational fillers naturally ("Um", "Ah", "Okay", "So...").
+    - Express human emotion, enthusiasm, or thoughtfulness (e.g., "That's really impressive", "I'd love to hear more about").
+    - NEVER use hyphens (-), dashes, or semicolons (;). They make the voice engine glitch and sound robotic. Use commas or ellipses (...) for natural speaking pauses.
+    - Keep the phrasing casual, warm, and highly engaging.
     
     Job Description:
     {jd_text}
@@ -131,7 +139,7 @@ def generate_first_question(jd_text: str, resume_data: dict, deep_research: dict
     Resume Data:
     {json.dumps(resume_data)}
     
-    Return ONLY a single string (the question itself). No JSON, no quotes, just the text.
+    Return ONLY a single string (the spoken question itself). No JSON, no quotes, just the conversational spoken text.
     """
     
     try:
@@ -170,8 +178,16 @@ def generate_next_question_adaptive(jd_text: str, deep_research: dict, resume_da
 
     Task 2: GENERATE NEXT QUESTION
     If they gave a weak or suspicious answer, drill down into it! Ask for specific examples.
-    If they gave a great answer, pivot to a new topic from the Deep Research Insights (like a "hidden market requirement" or "red flag topic to probe").
-    If this is question #5 (the final question), wrap it up or ask a high-level situational question.
+    If they gave a great answer, pivot to a new topic from the Deep Research Insights.
+    CRITICAL INSTRUCTION: The difficulty of the questions MUST PROGRESSIVELY INCREASE. Since this is question #{question_index + 1}/5, the technical depth and difficulty MUST be noticeably harder and more advanced than the previous questions.
+    If this is question #5 (the final question), wrap it up or ask a highly advanced, high-level system design or situational question.
+    
+    CRITICAL TONE INSTRUCTION FOR REALISM & EMOTION:
+    Do NOT sound like a robotic script or use formal corporate jargon. Speak exactly like an empathetic, thoughtful human interviewer.
+    - Acknowledge their previous answer with genuine human emotion (e.g., "Wow, that's a really fascinating approach.", "Hmm, I see exactly what you mean.", "Ah, okay, that makes total sense.").
+    - Use natural conversational fillers ("Um", "Right", "Okay", "So...").
+    - NEVER use hyphens (-), dashes, or semicolons (;). They break the text-to-speech engine's natural flow. Use commas or ellipses (...) to simulate organic breathing pauses.
+    - Keep your tone casual, genuinely curious, and warm.
     
     Return a JSON object with EXACTLY this structure:
     {{

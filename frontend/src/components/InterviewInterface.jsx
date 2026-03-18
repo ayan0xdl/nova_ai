@@ -15,9 +15,11 @@ export default function InterviewInterface({ jdText, resumeData, deepResearch, f
   const [isProcessingNext, setIsProcessingNext] = useState(false)
   const [sentiment, setSentiment] = useState({ score: 100, flagged: false })
   const [manualAnswer, setManualAnswer] = useState("")
+  const [baseAnswer, setBaseAnswer] = useState("")
   
-  // Audio Synthesis ref
+  // Audio Synthesis refs
   const synthRef = useRef(window.speechSynthesis)
+  const audioRef = useRef(null)
 
   // React-Speech-Recognition Hook
   const {
@@ -29,30 +31,95 @@ export default function InterviewInterface({ jdText, resumeData, deepResearch, f
   } = useSpeechRecognition();
 
   useEffect(() => {
-    // Sync transcript to local state
+    // Properly append live transcript to the existing edits without overwriting
     if (listening) {
-      setManualAnswer(transcript);
+      setManualAnswer((baseAnswer ? baseAnswer + " " : "") + transcript);
     }
   }, [transcript, listening]);
 
   useEffect(() => {
-    // Auto-read the first question
-    speakText(firstQuestion)
+    // Load voices
+    const loadVoices = () => { window.speechSynthesis.getVoices() };
+    loadVoices();
+    if (window.speechSynthesis.onvoiceschanged !== undefined) {
+      window.speechSynthesis.onvoiceschanged = loadVoices;
+    }
+
+    // Auto-read the first question with a slight delay
+    const timer = setTimeout(() => {
+      speakText(firstQuestion)
+    }, 500);
+
     return () => {
+      clearTimeout(timer)
       synthRef.current.cancel()
+      if (audioRef.current) audioRef.current.pause()
     }
   }, [])
 
-  const speakText = (text) => {
+  const fallbackSpeakText = (text) => {
     if (synthRef.current.speaking) synthRef.current.cancel()
     const utterance = new SpeechSynthesisUtterance(text)
+    
+    const voices = window.speechSynthesis.getVoices()
+    
+    const isUSUKFemale = (v) => {
+      const name = v.name.toLowerCase();
+      const lang = v.lang || '';
+      return (lang.includes('en-US') || lang.includes('en-GB') || name.includes('uk english') || name.includes('us english') || name.includes('aria') || name.includes('samantha') || name.includes('victoria')) && 
+             (!name.includes('male') || name.includes('female'));
+    };
+    
+    let bestVoice = voices.find(voice => voice.name.includes('Natural') && isUSUKFemale(voice)) ||
+                    voices.find(voice => voice.name.includes('Natural') && voice.name.includes('Female')) ||
+                    voices.find(voice => voice.name.includes('Google UK English Female')) ||
+                    voices.find(voice => voice.name.includes('Google US English')) ||
+                    voices.find(voice => isUSUKFemale(voice)) ||
+                    voices.find(voice => voice.name.includes('Premium') && voice.name.includes('Female')) ||
+                    voices.find(voice => voice.name.toLowerCase().includes('female'));
+    
+    if (bestVoice) {
+      utterance.voice = bestVoice
+    }
+    
+    utterance.rate = 1.0; 
+    utterance.pitch = 1.0; 
+
     synthRef.current.speak(utterance)
+  }
+
+  const speakText = (text) => {
+    // Stop any existing audio
+    if (synthRef.current.speaking) synthRef.current.cancel()
+    if (audioRef.current) audioRef.current.pause()
+    
+    // We bypass the browser's robotic Web Speech API completely!
+    // We use a high-fidelity Neural AWS Polly voice (Amy - UK English Female) 
+    // to guarantee an ultra-realistic, conversational human voice capable of great emotion.
+    try {
+      const url = `https://api.streamelements.com/kappa/v2/speech?voice=Amy&text=${encodeURIComponent(text)}`;
+      const audio = new Audio(url);
+      audioRef.current = audio;
+      
+      // Slight reduction in speed makes the neural network sound like it's thoughtfully speaking naturally
+      audio.playbackRate = 0.95;
+      
+      audio.play().catch(e => {
+        console.warn("High-fidelity audio prevented by browser policies. Falling back to built-in TTS.", e);
+        fallbackSpeakText(text);
+      });
+    } catch (err) {
+      fallbackSpeakText(text);
+    }
   }
 
   const toggleListening = () => {
     if (listening) {
       SpeechRecognition.stopListening()
+      setBaseAnswer(manualAnswer); // Commit edits when mic stops
     } else {
+      resetTranscript();
+      setBaseAnswer(manualAnswer); // Lock in edits before mic restarts
       SpeechRecognition.startListening({ continuous: true, language: 'en-US' })
     }
   }
@@ -60,11 +127,12 @@ export default function InterviewInterface({ jdText, resumeData, deepResearch, f
   const handleNextAction = async () => {
     SpeechRecognition.stopListening()
     
-    const finalAnswer = manualAnswer.trim() || transcript.trim() || "(No response provided)"
+    const finalAnswer = manualAnswer.trim() || "(No response provided)"
     const newHistory = [...qaHistory, { question: currentQuestion, answer: finalAnswer }]
     setQaHistory(newHistory)
     resetTranscript()
     setManualAnswer("")
+    setBaseAnswer("")
     
     if (questionIndex < 4) {
       setIsProcessingNext(true)
@@ -211,8 +279,19 @@ export default function InterviewInterface({ jdText, resumeData, deepResearch, f
               >
                 <div className={`absolute inset-0 bg-gradient-to-tr from-purple-600/20 to-indigo-600/20 rounded-full ${listening ? 'animate-pulse' : ''}`}></div>
                 <div className="w-full h-full opacity-40 mix-blend-screen bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] animate-spin-slow"></div>
-                <div className={`absolute w-12 h-12 lg:w-16 lg:h-16 rounded-full blur-xl ${listening ? 'bg-gradient-to-r from-purple-400 to-pink-500' : 'bg-indigo-900/50'} transition-all duration-700`}></div>
               </motion.div>
+              
+              {/* Default Avatar Overlay */}
+              <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
+                <div className={`relative w-14 h-14 lg:w-20 lg:h-20 rounded-full overflow-hidden border-2 shadow-[0_0_15px_rgba(168,85,247,0.5)] ${listening ? 'border-pink-400 shadow-[0_0_25px_rgba(236,72,153,0.6)] animate-pulse' : 'border-purple-500/50 '}`}>
+                  <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=256&h=256" alt="NOVA Avatar" className="w-full h-full object-cover brightness-90 saturate-50" />
+                  {/* Subtle cinematic purple/indigo tint to flawlessly match the UI's dark futuristic theme */}
+                  <div className="absolute inset-0 bg-indigo-900/30 mix-blend-color"></div>
+                  <div className="absolute inset-0 bg-gradient-to-tr from-purple-500/20 to-transparent mix-blend-overlay"></div>
+                  {/* Inner shadow to blend the edges into the dark ring */}
+                  <div className="absolute inset-0 shadow-[inset_0_0_15px_rgba(0,0,0,0.8)] rounded-full"></div>
+                </div>
+              </div>
             </div>
             
             <button 
@@ -285,7 +364,7 @@ export default function InterviewInterface({ jdText, resumeData, deepResearch, f
               
               <div className="mt-4 flex-1 w-full h-full flex flex-col justify-center relative">
                 <textarea
-                  value={listening ? transcript : manualAnswer}
+                  value={manualAnswer}
                   onChange={(e) => setManualAnswer(e.target.value)}
                   disabled={listening}
                   placeholder={listening ? "Listening closely..." : "Tap the mic to respond..."}

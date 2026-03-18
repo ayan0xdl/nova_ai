@@ -42,6 +42,21 @@ Built for modern hiring teams, the system parses resumes, analyzes job descripti
 
 ---
 
+## Why Gemini? (AI Model Comparison)
+
+NOVA AI utilizes **Google Gemini 3.1 Flash Lite Preview** over other models because of its ideal balance of speed, capability, and parameter efficiency logic specifically required for real-time interview generation.
+
+| Model | Parameters | Speed (Latency) | Reasoning Capability | Cost | Best Use Case |
+|---|---|---|---|---|---|
+| **GPT-4o** | ~1 Trillion+ | High | Excellent | High | Complex problem solving |
+| **Claude 3.5 Sonnet** | Unknown | Medium | Excellent | Medium | Heavy context coding |
+| **Gemini Flash Lite** | Unknown (Optimized) | Very Fast | High | Very Low | **Real-time Voice/Conversational AI** |
+
+**Why Gemini wins here:**
+When conducting a real-time voice interview, latency is the biggest bottleneck. If the API takes 3+ seconds to generate a question, the candidate experiences an awkward silence. Gemini Flash Lite is exceptionally fast compared to heavier parameterized models, ensuring the conversational flow feels human and uninterrupted without sacrificing the depth of technical questioning.
+
+---
+
 ## Getting Started
 
 Follow these instructions to set up the project locally for development and testing.
