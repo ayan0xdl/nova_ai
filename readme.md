@@ -142,5 +142,11 @@ npm run dev
 
 - [ ] Connect with Applicant Tracking Systems (ATS) downstream.
 - [ ] Add Multi-language support for global technical interviews.
-- [ ] Implement Speech-to-Speech interaction (TTS for the interviewer voice).
+- [ ] Implement Speech-to-Speech interaction (TTS for the interviewer's voice).
 - [ ] Add facial sentiment analysis during the interview to track confidence.
+
+## Authors
+
+**Ayan Nawchoo & Rudrprakash Das**  
+AI | Computer Vision | Intelligent Systems  
+- GitHub: [@ayan0xdl](https://github.com/ayan0xdl) & [@RPCodes121](https://github.com/RPCodes121)
